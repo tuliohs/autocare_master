@@ -14,7 +14,7 @@ Notifications.setNotificationHandler({
   }),
 });
 
-export default function AlarmeScreen() {
+export default function AlarmeScreen({ navigation }) {
   const [token, setToken] = useState();
 
   async function scheduleNotification({ navigation }) {
@@ -46,23 +46,27 @@ export default function AlarmeScreen() {
   return (
     <View style={styles.container}>
       <SimpleHeader titulo="Alarme" onPress={goBack} />
-      <Button
-        title="Press to schedule a notification"
-        onPress={async () => await scheduleNotification()}
-      />
-
-      {token && (
+      <Clock />
+      <View style={{ padding: 30, paddingBottom: 120, backgroundColor: '#ffffff' }}>
         <Button
-          title="Cancel schedule notification"
-          onPress={async () => await cancelNotification()}
+          title="Press to schedule a notification"
+          onPress={async () => await scheduleNotification()}
         />
-      )}
+
+        {token && (
+          <Button
+            title="Cancel schedule notification"
+            onPress={async () => await cancelNotification()}
+          />
+        )}
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     justifyContent: 'center',
     paddingTop: Constants.statusBarHeight,
     backgroundColor: '#368c8c',
